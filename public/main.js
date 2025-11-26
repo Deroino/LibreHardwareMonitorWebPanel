@@ -1,4 +1,5 @@
 const DEFAULT_DATA_ENDPOINT = 'http://localhost:8085/data.json';
+const STORAGE_KEY = 'libre-hw-monitor-endpoint';
 let dataEndpoint = DEFAULT_DATA_ENDPOINT;
 const THEME_CLASSES = ['theme-cyber', 'theme-midnight', 'theme-orbit'];
 
@@ -414,10 +415,28 @@ function setRefreshInterval(seconds, syncInputs = true) {
   scheduleRefresh();
 }
 
+function saveEndpointToStorage(endpoint) {
+  try {
+    localStorage.setItem(STORAGE_KEY, endpoint);
+  } catch (error) {
+    console.warn('Failed to save endpoint to localStorage:', error);
+  }
+}
+
+function loadEndpointFromStorage() {
+  try {
+    return localStorage.getItem(STORAGE_KEY) || DEFAULT_DATA_ENDPOINT;
+  } catch (error) {
+    console.warn('Failed to load endpoint from localStorage:', error);
+    return DEFAULT_DATA_ENDPOINT;
+  }
+}
+
 function setDataEndpoint(url) {
   const trimmed = (url || '').trim();
   const target = trimmed || DEFAULT_DATA_ENDPOINT;
   dataEndpoint = target;
+  saveEndpointToStorage(target);
   if (refs.dataUrlInput) {
     refs.dataUrlInput.value = target;
   }
@@ -500,6 +519,7 @@ function initControls() {
 }
 
 function init() {
+  dataEndpoint = loadEndpointFromStorage();
   initControls();
   setRefreshInterval(5, true);
   fetchTelemetry();

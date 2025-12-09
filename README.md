@@ -1,6 +1,6 @@
  # Libre Hardware Monitor Web Panel
 
-  A lightweight mobile-first dashboard for Libre Hardware Monitor data. 
+  A lightweight mobile-first dashboard for [Libre Hardware Monitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor) data. 
   View CPU, GPU, VRAM, RAM, storage, and network telemetry from any device.
 
 <img width="1460" height="1169" alt="image" src="https://github.com/user-attachments/assets/2ebd9b31-9536-4bf8-b1b4-33fd710d3996" />
